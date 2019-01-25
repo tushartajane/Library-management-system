@@ -1,0 +1,15 @@
+DROP PROCEDURE IF EXISTS library_book_payment_info;
+DELIMITER $$
+CREATE PROCEDURE library_book_payment_info()
+BEGIN
+  DECLARE i INT DEFAULT 0;
+  SET FOREIGN_KEY_CHECKS=0; TRUNCATE inventory; SET FOREIGN_KEY_CHECKS=1;
+  WHILE i < 1000000 DO
+  INSERT INTO payment_info(mem_id ,date_of_payment,amount)
+  VALUES (i+1,
+  FROM_UNIXTIME(UNIX_TIMESTAMP('2018-11-11 01:00:00')+FLOOR(RAND()*31536000)),
+  ROUND(RAND()*100,2));
+  SET i = i + 1;
+ END WHILE;
+END$$
+DELIMITER ;
