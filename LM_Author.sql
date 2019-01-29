@@ -3,10 +3,13 @@ DELIMITER $$
 CREATE PROCEDURE library_book_author()
 BEGIN
   DECLARE i INT DEFAULT 0;
-  SET FOREIGN_KEY_CHECKS=0; TRUNCATE inventory; SET FOREIGN_KEY_CHECKS=1;
-  WHILE i < 1000000 DO
+  WHILE i < 10000 DO
   INSERT INTO author(id,NAME)
   VALUES (i+1,CONCAT("Book_author", i, "Name"));
+  IF i % 1000 = 0
+       THEN
+         COMMIT;
+     END IF;
   SET i = i + 1;
  END WHILE;
 END$$

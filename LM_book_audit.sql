@@ -1,18 +1,19 @@
-DROP PROCEDURE IF EXISTS library_book_payment_info;
+DROP PROCEDURE IF EXISTS library_book_audit;
 DELIMITER $$
-CREATE PROCEDURE library_book_payment_info()
+CREATE PROCEDURE library_book_audit()
 BEGIN
   DECLARE i INT DEFAULT 0;
   WHILE i < 10000 DO
-  INSERT INTO payment_info(mem_id ,date_of_payment,amount)
-  VALUES (i+1,
+  INSERT INTO book_audit(mem_id ,book_id, issue_date,return_date)
+  VALUES (i+1,i+1,
   FROM_UNIXTIME(UNIX_TIMESTAMP('2018-11-11 01:00:00')+FLOOR(RAND()*31536000)),
-  ROUND(RAND()*100,2));
+  FROM_UNIXTIME(UNIX_TIMESTAMP('2018-11-11 01:00:00')+FLOOR(RAND()*31536000)));
   IF i % 1000 = 0
        THEN
          COMMIT;
      END IF;
   SET i = i + 1;
+
  END WHILE;
 END$$
 DELIMITER ;
