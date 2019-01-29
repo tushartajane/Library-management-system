@@ -3,7 +3,6 @@ DELIMITER $$
 CREATE PROCEDURE library_book_stock()
 BEGIN
   DECLARE i INT DEFAULT 0;
-SET FOREIGN_KEY_CHECKS=0; TRUNCATE stock; SET FOREIGN_KEY_CHECKS=1;
   WHILE i < 10 DO
   INSERT INTO stock(id,NAME,quantity)
   VALUES (i+1,CONCAT("Book_", i, "Name"), i+1);
